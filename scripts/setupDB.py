@@ -44,10 +44,7 @@ def setDummyUsers():
 			else:
 				tempDict = {tag1:row[0], tag2:row[1], tag3:row[2]}
 				users.append(tempDict)
-				# movieIDs.append(row[1])
 				line_count += 1
-
-# setMovies()
 
 def setupDatabase():
 	global users
@@ -56,22 +53,13 @@ def setupDatabase():
 	moviesDB = myClient["movietime"]
 	myUsers = moviesDB["users"]
 	myMovies = moviesDB["movies"]
-	# mydict = { "name": "John", "address": "Highway 37" }
-	# something=['chirag']
-	# print(users)
+
 	for i in range(len(users)):
 		myUsers.insert_one(users[i])
 
 	for i in range(len(movies)):
 		myMovies.insert_one(movies[i])
 
-	# myUsers.insert_one(something)
-
 setMovies()
 setDummyUsers()
 setupDatabase()
-
-# myCol.insert_one(mydict)
-
-# print(myClient.list_database_names())
-# time.sleep(5)
