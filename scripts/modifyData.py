@@ -1,5 +1,6 @@
 import csv
 from collectData import getData
+import json
 
 def generateIMDBLinks():
 	movieIDs = []
@@ -65,10 +66,14 @@ def getDetailsFromID():
 				line_count += 1
 	with open('data/movieRatings/movieData.csv', mode='w') as movieData_file:
 		movieData_writer = csv.writer(movieData_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+		movieData_writer.writerow(['Title','Genre','Year','imdbRating','Plot'])
 		for i in range(len(movieIDs)):
 			print(i)
-			movieData_writer.writerow([getData(movieIDs[i])])
+			x = getData(movieIDs[i])
+			y = dict(x)
+			movieData_writer.writerow([y['Title'], y['Genre'], y['Year'], y['imdbRating'], y['Plot']])
 	
 generateIMDBLinks()
 generateRatings()
 getDetailsFromID()
+print('Modification of data done!')

@@ -1,6 +1,6 @@
 import requests
 
-API_KEY = "7ac1f872"
+API_KEY = "8d3f0fb4"
 
 OMDB_URL = "http://www.omdbapi.com/"
 
