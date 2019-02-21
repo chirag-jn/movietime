@@ -30,17 +30,16 @@ def results():
 
 @app.route("/")
 def home():
-	return "hello world"
-	# global movies
-	# global length
-	# movies = []
-	# for x in myMovies.find():
-	# 	temp = dict(x)
-	# 	p1 = node(temp['Title'], temp['Year'], temp['Genre'], temp['imdbId'], temp['Plot'])
-	# 	movies.append(p1)
-	# length = len(movies)
-	# # print(lengthMovies)
-	# return render_template('movies.html', data=movies)
+	global movies
+	global length
+	movies = []
+	for x in myMovies.find():
+		temp = dict(x)
+		p1 = node(temp['Title'], temp['Year'], temp['Genre'], temp['imdbId'], temp['Plot'])
+		movies.append(p1)
+	length = len(movies)
+	# print(lengthMovies)
+	return render_template('movies.html', data=movies)
 
 if __name__ == "__main__":
 	myClient = pym.MongoClient("mongodb://admin:Div%401234@movietimebot-shard-00-00-jttos.mongodb.net:27017,movietimebot-shard-00-01-jttos.mongodb.net:27017,movietimebot-shard-00-02-jttos.mongodb.net:27017/test?ssl=true&replicaSet=movietimebot-shard-0&authSource=admin&retryWrites=true")
