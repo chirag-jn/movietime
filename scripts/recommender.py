@@ -14,7 +14,7 @@ class movieNode:
 
 def user_user(arg_dict):
 
-	myClient = pym.MongoClient("mongodb://localhost:27017")
+	myClient = pym.MongoClient("mongodb://admin:Div%401234@movietimebot-shard-00-00-jttos.mongodb.net:27017,movietimebot-shard-00-01-jttos.mongodb.net:27017,movietimebot-shard-00-02-jttos.mongodb.net:27017/test?ssl=true&replicaSet=movietimebot-shard-0&authSource=admin&retryWrites=true")
 	moviesDB = myClient["movietime"]
 	myUsers = moviesDB["users"]
 	myMovies = moviesDB["movies"]
@@ -98,7 +98,7 @@ def user_user(arg_dict):
 
 def item_item():
 
-	myClient = pym.MongoClient("mongodb://localhost:27017")
+	myClient = pym.MongoClient("mongodb://admin:Div%401234@movietimebot-shard-00-00-jttos.mongodb.net:27017,movietimebot-shard-00-01-jttos.mongodb.net:27017,movietimebot-shard-00-02-jttos.mongodb.net:27017/test?ssl=true&replicaSet=movietimebot-shard-0&authSource=admin&retryWrites=true")
 	moviesDB = myClient["movietime"]
 	myUsers = moviesDB["users"]
 	myMovies = moviesDB["movies"]
