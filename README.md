@@ -1,6 +1,18 @@
 # Movie Time
 ## Project for Precog Application
 
+## Project
+
+### Website
+[](https://movietimebot.herokuapp.com/)
+
+### Local Machine
+```
+sudo python3 -m pip install -r requirements.txt
+python3 run.py
+```
+Go to [](http://localhost:5000/)
+
 ## Data Acquisition
 
 ### IMDB API
@@ -22,7 +34,20 @@ obtain movie information from IMDb.
 ### Modification of Dataset
 1. The movieset which we are using has a lot of data which we don't need so we have to extract the required data from the dataset.
 2. The modification of dataset is done in the script modifyData.py present under /scripts
-3. generateIMDBLinks() function extracts the movieID (for OMDb Dataset) and IMDbID for all movies present in the dataset which were released in the years 2015, 2016, 2017 or 2018.
+3. generateIMDBLinks() function extracts the movieID (for OMDb Dataset) and IMDbID for all movies present in the dataset which were released in the years 2017.
 4. generateRatings() function extracts the ratings of multiple users who rated the movies which were extracted using the previous function.
 5. This data works as our data for dummy users which will be used in the Collaborative Filtering algorithm.
 6. getDetailsFromID() function results in the JSON response for each movie's data from the OMDb website.
+
+## Movie Recommendation System
+
+### Collaborative Filtering Algorithms
+1. Movies are recommended on the basis of User's ratings using both User based Collaborative filtering and Item based Collaborate filtering.
+2. The algorithms are implemented in data/recommender.py
+3. User Based Collaborative Filtering is written in user_user() function.
+4. Item Based Collaborative Filtering is written in item_item() function.
+5. Reference: [](https://towardsdatascience.com/various-implementations-of-collaborative-filtering-100385c6dfe0)
+
+## Deployment
+1. The project is deployed on Heroku at: [](https://movietimebot.herokuapp.com/)s
+2. The database is hosted on MongoDb Atlas
