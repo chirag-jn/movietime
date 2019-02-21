@@ -3,9 +3,11 @@ import csv
 
 users =[]
 movies = []
+movieIds = []
 
 def setMovies():
 	global movies
+	global movieIds
 	with open('data/movieRatings/movieData.csv') as movies_file:
 		movies_reader = csv.reader(movies_file, delimiter=',')
 		line_count = 0
@@ -27,12 +29,15 @@ def setMovies():
 				tag7 = row[6]				
 				line_count += 1
 			else:
-				tempDict = {tag1:row[0], tag2:row[1], tag3:row[2], tag4:row[3], tag5:row[4], tag6:row[5], tag7:row[6]}
-				movies.append(tempDict)
+				if(row[4]=='2017'):
+					movieIds.append(row[0])
+					tempDict = {tag1:row[0], tag2:row[1], tag3:row[2], tag4:row[3], tag5:row[4], tag6:row[5], tag7:row[6]}
+					movies.append(tempDict)
 				line_count += 1
 
 def setDummyUsers():
 	global users
+	global movieIds
 	with open('data/movieRatings/ratings.csv') as movies_file:
 		movies_reader = csv.reader(movies_file, delimiter=',')
 		line_count = 0
@@ -46,8 +51,9 @@ def setDummyUsers():
 				tag3 = row[2]
 				line_count += 1
 			else:
-				tempDict = {tag1:row[0], tag2:row[1], tag3:row[2]}
-				users.append(tempDict)
+				if row[1] in movieIds:
+					tempDict = {tag1:row[0], tag2:row[1], tag3:row[2]}
+					users.append(tempDict)
 				line_count += 1
 
 def setupDatabase():
