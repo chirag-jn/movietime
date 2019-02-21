@@ -5,8 +5,21 @@
 </head>
 <body>
     <h1>MovieTime Bot</h1>
+    <h2>Suggestions based on User Based Collaborative Filtering</h2>
     {% if message_user %}
-        <p> {{ message_user }} </p>
+        {% for item in message_user %}
+        	<p> <b> {{ item.Title }} </b> | {{ item.Year }} | {{ item.Genre }} </p>
+        	<p> {{ item.Plot }} </p>
+    	{% endfor %}
+    {% endif %} 
+
+
+    <h2>Suggestions based on Item Based Collaborative Filtering</h2>
+    {% if message_item %}
+        {% for item in message_item %}
+        	<p> <b> {{ item.Title }} </b> | {{ item.Year }} | {{ item.Genre }} </p>
+        	<p> {{ item.Plot }} </p>
+    	{% endfor %}
     {% endif %} 
 </body>
 </html>

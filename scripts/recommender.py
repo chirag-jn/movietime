@@ -97,10 +97,21 @@ def user_user(arg_dict):
 			p1 = movieNode(movie['imdbId'] ,0)
 		final_movie_ratings.append(p1)	
 	final_movie_ratings.sort()
-	return final_movie_ratings[-1].movieId
+
+	result = []
+
+	for i in range(-1,-6,-1):
+		movieI = final_movie_ratings[i].movieId
+		a = myMovies.find_one({'imdbId': movieI})
+		temp = {}
+		for key, val in a.items():
+			temp[key] = val
+		result.append(temp)
+
+	return result
 
 
-def item_item():
+def item_item(arg_dict):
 
 	myClient = pym.MongoClient("mongodb://admin:Div%401234@movietimebot-shard-00-00-jttos.mongodb.net:27017,movietimebot-shard-00-01-jttos.mongodb.net:27017,movietimebot-shard-00-02-jttos.mongodb.net:27017/test?ssl=true&replicaSet=movietimebot-shard-0&authSource=admin&retryWrites=true")
 	moviesDB = myClient["movietime"]
@@ -127,7 +138,12 @@ def item_item():
 
 	newUserId = str(int(list(userRatings.keys())[-1])+1)
 
-	new_user = [{'userId': newUserId, 'imdbId': '3682448', 'rating': '5.0'}, {'userId': newUserId, 'imdbId': '2948356', 'rating': '3.5'}, {'userId': newUserId, 'imdbId': '369610', 'rating': '1.0'}, {'userId': newUserId, 'imdbId': '1392190', 'rating': '1.0'}, {'userId': newUserId, 'imdbId': '2395427', 'rating': '4.0'}, {'userId': newUserId, 'imdbId': '2637276', 'rating': '2.0'}]
+	# new_user = [{'userId': newUserId, 'imdbId': '3682448', 'rating': '5.0'}, {'userId': newUserId, 'imdbId': '2948356', 'rating': '3.5'}, {'userId': newUserId, 'imdbId': '369610', 'rating': '1.0'}, {'userId': newUserId, 'imdbId': '1392190', 'rating': '1.0'}, {'userId': newUserId, 'imdbId': '2395427', 'rating': '4.0'}, {'userId': newUserId, 'imdbId': '2637276', 'rating': '2.0'}]
+
+	new_user = []
+	for i in range(len(arg_dict)):
+		temp = {'userId': newUserId, 'imdbId': list(arg_dict.keys())[i], 'rating': list(arg_dict.values())[i]}
+		new_user.append(temp)
 
 	myMag = 0
 
@@ -138,9 +154,10 @@ def item_item():
 		temp = new_user[i]
 		cur_movie = temp['imdbId']
 		cur_rating = temp['rating']
-		initial_seen.append(cur_movie)
-		movieRatings[cur_movie] = cur_rating
-		myMag += float(cur_rating) * float(cur_rating)
+		if(float(cur_rating)>0):
+			initial_seen.append(cur_movie)
+			movieRatings[cur_movie] = cur_rating
+			myMag += float(cur_rating) * float(cur_rating)
 
 	for i in range(len(movieRatings)):
 		cur_movie = list(movieRatings.keys())[i]
@@ -205,6 +222,7 @@ def item_item():
 			# exit()
 			# print(cosine_array[-2].movieId)
 			# print(float(movieRatings[cosine_array[-1].movieId]))
+			# print(len(cosine_array))
 			if (float(cosine_array[-2].movieRating)+float(cosine_array[-1].movieRating)) > 0:
 				# print((float(movieRatings[cosine_array[-2].movieId])*float(cosine_array[-2].movieRating)+float(movieRatings[cosine_array[-1].movieId])*float(cosine_array[-1].movieRating))/(float(cosine_array[-2].movieRating)+float(cosine_array[-1].movieRating)))
 				movieRatings[cur_movie] = str((float(movieRatings[cosine_array[-2].movieId])*float(cosine_array[-2].movieRating)+float(movieRatings[cosine_array[-1].movieId])*float(cosine_array[-1].movieRating))/(float(cosine_array[-2].movieRating)+float(cosine_array[-1].movieRating)))
@@ -220,60 +238,21 @@ def item_item():
 			toShow.append(p1)
 
 	toShow.sort()
-	print(toShow[-2].movieId)
-	# print(tos)
 
-	exit()
+	# print(toShow[-2].movieId)
 
-	# similarity = []
+	result = []
+	for i in range(-1,-6,-1):
+		movieI = toShow[i].movieId
+		a = myMovies.find_one({'imdbId': movieI})
+		temp = {}
+		for key, val in a.items():
+			temp[key] = val
+		result.append(temp)
 
-	# foriegn_mag = []
-	# for j in range(len(userRatings)):
-	# 	temp = []
-	# 	ratings = userRatings[list(userRatings.keys())[j]]
-	# 	for k in range(len(ratings)):
-	# 		vv = float(list(ratings[k].values())[0])
-	# 		temp.append(vv*vv)	
-	# 	temp_val = sum(temp)
-	# 	temp_val = pow(temp_val, 0.5)
-	# 	foriegn_mag.append(temp_val)
-
-	# print(movieRatings)
+	return result
 
 	# exit()
-
-	# myMag = pow(myMag, 0.5)
-
-	# for j in range(len(userRatings)):
-	# 	dot_product = 0
-	# 	ratings = userRatings[list(userRatings.keys())[j]]
-	# 	for k in range(len(ratings)):
-	# 		for i in range(len(new_user)):
-	# 			temp = new_user[i]
-	# 			cur_movie = temp['imdbId']
-	# 			cur_rating = temp['rating']
-	# 			if cur_movie in list(ratings[k].keys()):
-	# 				dot_product += float(ratings[k][cur_movie])*float(cur_rating)
-	# 	similarity.append(dot_product/(myMag*foriegn_mag[j]))
-
-	# similarity_mod = sum(similarity)
-
-	# final_movie_ratings = []
-
-	# for x in myMovies.find():
-	# 	movie = dict(x)
-	# 	value_to_add = 0
-	# 	for j in range(len(userRatings)):
-	# 		dot_product = 0
-	# 		ratings = userRatings[list(userRatings.keys())[j]]
-	# 		for k in range(len(ratings)):
-	# 			if movie['imdbId'] in list(ratings[k].keys()):
-	# 				value_to_add += similarity[j]*float(ratings[k][movie['imdbId']])
-
-	# 	p1 = movieNode(movie['imdbId'] ,value_to_add/similarity_mod)
-	# 	final_movie_ratings.append(p1)
-	# final_movie_ratings.sort()
-	# print(final_movie_ratings[-1].movieId)
 
 # user_user()
 # item_item()

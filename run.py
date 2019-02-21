@@ -30,10 +30,9 @@ def results():
 		answer1 = {}
 		for i in range(length):
 			answer1[movies[i].imdbId] = request.form['rating_'+str(i+1)]
-		a="d"
-		# print(answer1)
 		a = user_user(answer1)
-		return render_template('results.html', message_user=a)
+		b = item_item(answer1)
+		return render_template('results.html', message_user=a, message_item=b)
 
 @app.route("/")
 def home():
@@ -55,4 +54,4 @@ if __name__ == "__main__":
 	moviesDB = myClient["movietime"]
 	myMovies = moviesDB["movies"]
 	# print(myMovies)
-	app.run(debug=True)
+	app.run(threaded=True)
