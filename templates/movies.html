@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MovieTime Bot</title>
+</head>
+<body>
+    <h1>MovieTime Bot</h1>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %} 
+
+ <form action="{{ url_for('results') }}" method="post">
+    {% for item in data %}
+        <p> <b> {{ item.movie }} </b> | {{ item.year }} | {{ item.genre }} </p>
+        <p> {{ item.plot }} </p>
+    <select name="rating_{{loop.index}}" size="1">
+        <option selected="selected">0</option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+        <br>
+        <br>
+    {% endfor %}
+    <p>
+        <input type="submit">
+    </p>
+    </form>
+ 
+</body>
+</html>

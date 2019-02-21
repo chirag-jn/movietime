@@ -14,16 +14,20 @@ def setMovies():
 		tag3=''
 		tag4=''
 		tag5=''
+		tag6=''
+		tag7=''
 		for row in movies_reader:
 			if line_count == 0:
 				tag1 = row[0]
 				tag2 = row[1]
 				tag3 = row[2]
 				tag4 = row[3]
-				tag5 = row[4]				
+				tag5 = row[4]
+				tag6 = row[5]
+				tag7 = row[6]				
 				line_count += 1
 			else:
-				tempDict = {tag1:row[0], tag2:row[1], tag3:row[2], tag4:row[3], tag5:row[4]}
+				tempDict = {tag1:row[0], tag2:row[1], tag3:row[2], tag4:row[3], tag5:row[4], tag6:row[5], tag7:row[6]}
 				movies.append(tempDict)
 				line_count += 1
 

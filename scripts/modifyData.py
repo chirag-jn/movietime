@@ -55,6 +55,7 @@ def generateRatings():
 
 def getDetailsFromID():
 	movieIDs = []
+	imdbIds = []
 	with open('data/movieRatings/movieIDs.csv') as movieID_file:
 		movieID_reader = csv.reader(movieID_file, delimiter=',')
 		line_count = 0
@@ -62,17 +63,17 @@ def getDetailsFromID():
 			if line_count == 0:
 				line_count += 1
 			else:
-				movieIDs.append(row[1])
+				movieIDs.append(row[0])
+				imdbIds.append(row[1])
 				line_count += 1
-	with open('data/movieRatings/movieData.csv', mode='w') as movieData_file:
+	with open('data/movieRatings/movieData2.csv', mode='w') as movieData_file:
 		movieData_writer = csv.writer(movieData_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-		movieData_writer.writerow(['Title','Genre','Year','imdbRating','Plot'])
-		for i in range(len(movieIDs)):
+		movieData_writer.writerow(['imdbId', 'movieId', 'Title','Genre','Year','imdbRating','Plot'])
+		for i in range(len(imdbIds)):
 			print(i)
-			x = getData(movieIDs[i])
+			x = getData(imdbIds[i])
 			y = dict(x)
-			movieData_writer.writerow([y['Title'], y['Genre'], y['Year'], y['imdbRating'], y['Plot']])
-	
+			movieData_writer.writerow([imdbIds[i], movieIDs[i], y['Title'], y['Genre'], y['Year'], y['imdbRating'], y['Plot']])
 generateIMDBLinks()
 generateRatings()
 getDetailsFromID()
