@@ -6,10 +6,6 @@
 </head>
 <body>
     <h1>MovieTime Bot</h1>
-    {% if message %}
-        <p>{{ message }}</p>
-    {% endif %} 
-
  <form action="{{ url_for('results') }}" method="post">
     {% for item in data %}
         <p> <b> {{ item.movie }} </b> | {{ item.year }} | {{ item.genre }} </p>

@@ -31,7 +31,7 @@ def user_user(arg_dict):
 	
 	newUserId = str(int(list(userRatings.keys())[-1])+1)
 
-	print(arg_dict)
+	# print(arg_dict)
 
 	new_user = []
 	for i in range(len(arg_dict)):
@@ -39,7 +39,6 @@ def user_user(arg_dict):
 		new_user.append(temp)
 	# new_user = [{'userId': newUserId, 'imdbId': '3682448', 'rating': '5.0'}, {'userId': newUserId, 'imdbId': '2948356', 'rating': '3.5'}, {'userId': newUserId, 'imdbId': '369610', 'rating': '1.0'}, {'userId': newUserId, 'imdbId': '1392190', 'rating': '1.0'}, {'userId': newUserId, 'imdbId': '2395427', 'rating': '4.0'}, {'userId': newUserId, 'imdbId': '2637276', 'rating': '2.0'}]
 
-	print(new_user)
 	# exit()
 	similarity = []
 
@@ -74,7 +73,10 @@ def user_user(arg_dict):
 				cur_rating = temp['rating']
 				if cur_movie in list(ratings[k].keys()):
 					dot_product += float(ratings[k][cur_movie])*float(cur_rating)
-		similarity.append(dot_product/(myMag*foriegn_mag[j]))
+		if myMag*foriegn_mag[j]!=0:
+			similarity.append(dot_product/(myMag*foriegn_mag[j]))
+		else:
+			similarity.append(0)
 
 	similarity_mod = sum(similarity)
 
@@ -89,11 +91,13 @@ def user_user(arg_dict):
 			for k in range(len(ratings)):
 				if movie['imdbId'] in list(ratings[k].keys()):
 					value_to_add += similarity[j]*float(ratings[k][movie['imdbId']])
-
-		p1 = movieNode(movie['imdbId'] ,value_to_add/similarity_mod)
+		if similarity_mod!=0:
+			p1 = movieNode(movie['imdbId'] ,value_to_add/similarity_mod)
+		else:
+			p1 = movieNode(movie['imdbId'] ,0)
 		final_movie_ratings.append(p1)	
 	final_movie_ratings.sort()
-	print(final_movie_ratings[-1].movieRating)
+	return final_movie_ratings[-1].movieId
 
 
 def item_item():

@@ -20,16 +20,20 @@ class node:
 		self.imdbId = key4
 		self.plot = key5
 
-@app.route("/results", methods=['POST'])
+@app.route("/results", methods=['GET','POST'])
 def results():
 	global movies
 	global length
-	# print(lengthMovies)
-	answer1 = {}
-	for i in range(lengthMovies):
-		answer1[movies[i].imdbId] = request.form['rating_'+str(i+1)]
-	user_user(answer1)
-	return(request.form['rating_9'])
+	if request.method == 'POST':
+
+		# print("length", length)
+		answer1 = {}
+		for i in range(length):
+			answer1[movies[i].imdbId] = request.form['rating_'+str(i+1)]
+		a="d"
+		# print(answer1)
+		a = user_user(answer1)
+		return render_template('results.html', message_user=a)
 
 @app.route("/")
 def home():
