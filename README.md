@@ -4,14 +4,14 @@
 ## Project
 
 ### Website
-[](https://movietimebot.herokuapp.com/)
+https://movietimebot.herokuapp.com/
 
 ### Local Machine
 ```
 sudo python3 -m pip install -r requirements.txt
 python3 run.py
 ```
-Go to [](http://localhost:5000/)
+Go to http://localhost:5000/
 
 ## Data Acquisition
 
@@ -46,8 +46,8 @@ obtain movie information from IMDb.
 2. The algorithms are implemented in data/recommender.py
 3. User Based Collaborative Filtering is written in user_user() function.
 4. Item Based Collaborative Filtering is written in item_item() function.
-5. Reference: [](https://towardsdatascience.com/various-implementations-of-collaborative-filtering-100385c6dfe0)
+5. Reference: https://towardsdatascience.com/various-implementations-of-collaborative-filtering-100385c6dfe0
 
 ## Deployment
-1. The project is deployed on Heroku at: [](https://movietimebot.herokuapp.com/)s
+1. The project is deployed on Heroku at: https://movietimebot.herokuapp.com/
 2. The database is hosted on MongoDb Atlas
