@@ -32,6 +32,8 @@ def results():
 def home():
 	global movies
 	global length
+	global myMovies
+	
 	movies = []
 	for x in myMovies.find():
 		temp = dict(x)
